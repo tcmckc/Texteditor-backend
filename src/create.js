@@ -13,7 +13,8 @@ addCollection(docs)
 
 async function addCollection(doc) {
     const db = await database.getDb();
+
     await db.collection.insertOne(doc);
-    
+
     await db.collection.close();
 }

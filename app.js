@@ -1,4 +1,4 @@
-require('dotenv').config() // use .env file
+require('dotenv').config();
 
 const express = require("express");
 const app = express();
@@ -24,8 +24,10 @@ app.use('/add', add);
 app.use('/update', update);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+    res.send("Hello World");
 });
 
 // Start up server
-app.listen(port, () => console.log(`Example API listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Example API listening on port ${port}!`));
+
+module.exports = server;

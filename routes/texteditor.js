@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const texteditorModel = require('../models/texteditor')
+const texteditorModel = require('../models/texteditor');
 
 router.get(
     "/",
@@ -11,7 +11,7 @@ router.get(
         return res.json({
             data: docs
         });
-    }  
+    }
 );
 
 router.get(
@@ -21,6 +21,6 @@ router.get(
 
         res.send("tjo tjim!");
     }
-)
+);
 
 module.exports = router;

@@ -33,7 +33,6 @@ const texteditor = {
 
             await db.collection.deleteMany();
             await db.collection.insertMany(initDocs);
-
         } catch (error) {
             console.error(error.message);
         } finally {
@@ -65,8 +64,12 @@ const texteditor = {
         try {
             db = await database.getDb();
 
-            await db.collection.insertOne(newDoc);
+            const result = await db.collection.insertOne(newDoc);
 
+            return {
+                ...newDoc,
+                _id: result.insertedId,
+            };
         } catch (error) {
             console.log(error.message);
         } finally {
