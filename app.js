@@ -57,7 +57,7 @@ io.on('connection', function(socket) {
 });
 
 // Start up server
-const server = httpServer.listen(port, () => 
+const server = httpServer.listen(port, () =>
     console.log(`Example API listening on port ${port}!`)
 );
 
