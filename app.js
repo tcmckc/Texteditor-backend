@@ -32,15 +32,15 @@ app.get("/", (req, res) => {
 // Create socket.io server
 const io = require("socket.io")(httpServer, {
     cors: {
-      origin: '*',
-      methods: ["GET", "POST"]
+        origin: '*',
+        methods: ["GET", "POST"]
     }
 });
 
 // let throttleTimer;
 
 // クライアントと通信
-io.on('connection', function(socket) { 
+io.on('connection', function(socket) {
     console.log("a user connected");
 
     // クライアントから受信
@@ -54,7 +54,6 @@ io.on('connection', function(socket) {
     socket.on('disconnect', () => {
         console.log("disconnected with a user");
     });
-
 });
 
 // Start up server
