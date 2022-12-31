@@ -1,10 +1,10 @@
 // Module for setting up connection to database (Express <-> mongodb)
 
 const mongo = require("mongodb").MongoClient;
-const collectionName = "documents";
+// const collectionName = "documents";
 
 const database = {
-    getDb: async function getDb() {
+    getDb: async function getDb(collectionName="documents") {
         let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:` +
         `${process.env.ATLAS_PASSWORD}@cluster0.5vx9jte.mongodb.net/?retryWrites=true&w=majority`;
 

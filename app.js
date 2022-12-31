@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require("express");
+const bodyParser = require('body-parser');
 
 const app = express();
 const httpServer = require('http').createServer(app);
@@ -12,6 +13,7 @@ const morgan = require('morgan');
 const texteditor = require('./routes/texteditor');
 const add = require('./routes/add');
 const update = require('./routes/update');
+const auth = require('./routes/auth');
 
 app.use(cors());
 
@@ -21,9 +23,13 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('combined')); // 'combined' outputs the Apache style LOGs
 }
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/texteditor', texteditor);
 app.use('/add', add);
 app.use('/update', update);
+app.use('/auth', auth);
 
 app.get("/", (req, res) => {
     res.send("Hello World");
