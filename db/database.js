@@ -1,4 +1,5 @@
 // Module for setting up connection to database (Express <-> mongodb)
+// db:test, collection:documents
 
 const mongo = require("mongodb").MongoClient;
 // const collectionName = "documents";

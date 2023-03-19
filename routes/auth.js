@@ -10,9 +10,11 @@ router.post(
     async (req, res) => {
         const body = req.body;
 
-        console.log("req.body", body);
-
         await usersModel.register(res, body);
+
+        // const result = usersModel.register(body);
+        // console.log(result);
+        // return res.json(result);
     }
 );
 

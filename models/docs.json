@@ -1,13 +1,16 @@
 [
     {
         "name": "Down the Rabbit-Hole",
-        "text": "Alice was beginning to get very tired"
+        "text": "Alice was beginning to get very tired.....",
+        "editor": ["test@test.com", "test@test.se"]
     },
     {
         "name": "The Pool of Tears",
-        "text": "“Curiouser and curiouser!”"
+        "text": "“Curiouser and curiouser!”",
+        "editor": ["test@test.com"]
     },{
         "name": "A Mad Tea-Party",
-        "text": "There was a table set out under a tree"
+        "text": "There was a table set out under a tree",
+        "editor": ["test@test.com"]
     }
 ]

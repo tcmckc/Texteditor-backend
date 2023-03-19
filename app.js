@@ -14,6 +14,7 @@ const texteditor = require('./routes/texteditor');
 const add = require('./routes/add');
 const update = require('./routes/update');
 const auth = require('./routes/auth');
+const share = require('./routes/share');
 
 app.use(cors());
 
@@ -30,9 +31,10 @@ app.use('/texteditor', texteditor);
 app.use('/add', add);
 app.use('/update', update);
 app.use('/auth', auth);
+app.use('/share', share);
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("Welcome to my-app-backend");
 });
 
 // Create socket.io server

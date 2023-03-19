@@ -1,8 +1,9 @@
 const database = require('../db/database.js');
 
-const validator = require("email-validator");
+const ObjectId = require('mongodb').ObjectId;
 
-const bcrypt = require('bcryptjs');
+const validator = require("email-validator");
+const bcrypt = require('bcryptjs'); 
 const saltRounds = 10;
 
 const jwt = require('jsonwebtoken');
@@ -10,7 +11,7 @@ const jwt = require('jsonwebtoken');
 const users = {
     register: async function register(res, body) {
         const email = body.email;
-        const password = body.password;
+        const password = body.password;  
 
         if (!email || !password) {
             return res.status(400).json({
@@ -37,18 +38,18 @@ const users = {
                         status: 500,
                         message: 'Could not hash password',
                     }
-                });
+                }); 
             }
 
             let db = await database.getDb('users');
 
             try {
-                const doc = {
+                const user = {
                     email: email,
                     password: hash,
                 };
 
-                await db.collection.insertOne(doc);
+                await db.collection.insertOne(user);
 
                 return res.status(201).json({
                     data: {
@@ -111,9 +112,8 @@ const users = {
     },
 
     comparePasswords: async function comparePasswords(res, user, password) {
-
-
         bcrypt.compare(password, user.password, function (err, result) {
+            
             if (err) {
                 return res.status(500).json({
                     errors: {

@@ -12,6 +12,7 @@ const texteditor = {
 
         try {
             const allDocs = await db.collection.find({}).toArray();
+            console.log(allDocs);
 
             return allDocs;
         } catch (error) {
@@ -72,6 +73,31 @@ const texteditor = {
             };
         } catch (error) {
             console.log(error.message);
+        } finally {
+            await db.client.close();
+        }
+    },
+
+    addEditor: async function addEditor(filter, editor) {
+        console.log("addEditor", filter, editor);
+
+        let db = await database.getDb();
+
+        try {
+            await db.collection.updateOne(filter, {$push: editor });
+
+            const result = await db.collection.findOne({ _id: filter });
+
+            return {
+                result
+            }
+        } catch (error) {
+            return {
+                error: {
+                    message: error.message,
+                }
+            };
+
         } finally {
             await db.client.close();
         }
