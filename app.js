@@ -2,13 +2,21 @@ require('dotenv').config();
 
 const express = require("express");
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+
+const visual = true; // set false when release product
+const { graphqlHTTP } = require('express-graphql');
+const {
+    GraphQLSchema
+} = require('graphql');
+
+const RootQueryType = require('./graphql/root.js');
 
 const app = express();
 const httpServer = require('http').createServer(app);
 
 const port = process.env.PORT || 1337;
-const cors = require('cors');
-const morgan = require('morgan');
 
 const texteditor = require('./routes/texteditor');
 const add = require('./routes/add');
@@ -33,6 +41,15 @@ app.use('/update', update);
 app.use('/auth', auth);
 app.use('/share', share);
 
+const schema = new GraphQLSchema({
+    query: RootQueryType
+});
+
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    graphiql: visual,
+}));
+
 app.get("/", (req, res) => {
     res.send("Welcome to my-app-backend");
 });
@@ -47,15 +64,15 @@ const io = require("socket.io")(httpServer, {
 
 // let throttleTimer;
 
-// クライアントと通信
+// connect with client
 io.on('connection', function(socket) {
     console.log("a user connected");
 
-    // クライアントから受信
+    // receive from client
     socket.on('send_text', (data) => {
         console.log("send_text", data);
 
-        // クライアントへ送信
+        // send to client
         io.emit('received_text', data);
     });
 
