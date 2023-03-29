@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/40</span>
+                <span class='fraction'>18/40</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/40</span>
+                <span class='fraction'>18/40</span>
             </div>
         
             
@@ -180,21 +180,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,7 +266,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,14 +286,15 @@ const initDocs = JSON.parse(fs.readFileSync(
 ));
 &nbsp;
 const texteditor = {
-    getAllDocs: async function <span class="fstat-no" title="function not covered" >getAllDocs(</span>) {
-        let db = <span class="cstat-no" title="statement not covered" >await database.getDb();</span>
+    getAllDocs: async function getAllDocs() {
+        let db = await database.getDb();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const allDocs = <span class="cstat-no" title="statement not covered" >await db.collection.find({}).toArray();</span>
-<span class="cstat-no" title="statement not covered" >            console.log(allDocs);</span>
+        try {
+            const allDocs = await db.collection.find({}).toArray();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            return allDocs;</span>
+            console.log(allDocs);
+&nbsp;
+            return allDocs;
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >            return {</span>
                 errors: {
@@ -301,7 +302,7 @@ const texteditor = {
                 }
             };
         } finally {
-<span class="cstat-no" title="statement not covered" >            await db.client.close();</span>
+            await db.client.close();
         }
     },
 &nbsp;
@@ -369,14 +370,13 @@ const texteditor = {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            return {</span>
                 result
-            }
+            };
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >            return {</span>
                 error: {
                     message: error.message,
                 }
             };
-&nbsp;
         } finally {
 <span class="cstat-no" title="statement not covered" >            await db.client.close();</span>
         }
@@ -391,7 +391,7 @@ module.exports = texteditor;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-19T14:07:31.350Z
+                at 2023-03-29T12:17:55.277Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

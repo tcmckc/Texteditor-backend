@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-//const bodyParser = require("body-parser");
 const usersModel = require('../models/users');
-
-//var jsonParser = bodyParser.json();
 
 router.post(
     "/register",
@@ -23,8 +20,10 @@ router.post(
     async (req, res) => {
         const body = req.body;
 
-        await usersModel.login(res, body);
+        const result = await usersModel.login(res, body);
+
+        console.log("LOGIN", result);
     }
 );
- 
+
 module.exports = router;

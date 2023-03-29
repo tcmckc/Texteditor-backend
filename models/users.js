@@ -1,9 +1,9 @@
 const database = require('../db/database.js');
 
-const ObjectId = require('mongodb').ObjectId;
+//const ObjectId = require('mongodb').ObjectId;
 
 const validator = require("email-validator");
-const bcrypt = require('bcryptjs'); 
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const jwt = require('jsonwebtoken');
@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 const users = {
     register: async function register(res, body) {
         const email = body.email;
-        const password = body.password;  
+        const password = body.password;
 
         if (!email || !password) {
             return res.status(400).json({
@@ -19,7 +19,7 @@ const users = {
                     status: 400,
                     message: "E-mail or password is missing",
                 }
-            });  
+            });
         }
 
         if (!validator.validate(email)) {
@@ -38,7 +38,7 @@ const users = {
                         status: 500,
                         message: 'Could not hash password',
                     }
-                }); 
+                });
             }
 
             let db = await database.getDb('users');
@@ -69,7 +69,7 @@ const users = {
         });
     },
 
-    login: async function login (res, body) {
+    login: async function login(res, body) {
         const email = body.email;
         const password = body.password;
 
@@ -81,7 +81,7 @@ const users = {
                     status: 400,
                     message: "E-mail or password is missing",
                 }
-            });  
+            });
         }
         let db = await database.getDb("users");
 
@@ -105,7 +105,7 @@ const users = {
                     status: 500,
                     message: "Could not find user",
                 }
-            })
+            });
         } finally {
             await db.client.close();
         }
@@ -113,7 +113,6 @@ const users = {
 
     comparePasswords: async function comparePasswords(res, user, password) {
         bcrypt.compare(password, user.password, function (err, result) {
-            
             if (err) {
                 return res.status(500).json({
                     errors: {
@@ -150,7 +149,7 @@ const users = {
     checkToken: function checkToken(req, res, next) {
         const token = req.headers['x-access-token'];
 
-        jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
+        jwt.verify(token, process.env.JWT_SECRET, function (err) {
             if (err) {
                 return res.status(401).json({
                     errors: {

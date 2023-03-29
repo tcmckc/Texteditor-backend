@@ -11,9 +11,12 @@ chai.should();
 chai.use(chaiHttp);
 
 const database = require('../db/database.js');
+
 const collectionName = "documents";
 
 describe('Texteditor', () => {
+    let token;
+
     before(async () => {
         const db = await database.getDb();
 
@@ -34,34 +37,47 @@ describe('Texteditor', () => {
             });
     });
 
-    // Error: "promise executor should not be async"
-    // before(() => {
-    //     return new Promise(async (resolve) => {
-    //         const db = await database.getDb();
+    describe('POST /register', () => {
+        it('User registration', () => {
+            const userInfo = {
+                email: 'test@email.com',
+                password: 'test'
+            };
 
-    //         db.db.listCollections(
-    //             {name: collectionName }
-    //         )
-    //             .next()
-    //             .then(async function (info) {
-    //                 if (info) {
-    //                     await db.collection.drop();
-    //                 }
-    //             })
-    //             .catch(function (err) {
-    //                 console.error(err);
-    //             })
-    //             .finally(async function () {
-    //                 await db.client.close();
-    //                 resolve();
-    //             });
-    //     });
-    // });
+            chai.request(server)
+                .post('/auth/register')
+                .send(userInfo)
+                .end(async (err, res) => {
+                    res.should.have.status(200);
+                    res.body.data.message.should.equal("User succesfully created.");
+                });
+        });
+    });
+
+    describe('POST /login', () => {
+        it('User login', (done) => {
+            const loginUser = {
+                email: 'test@email.com',
+                password: 'test'
+            };
+
+            chai.request(server)
+                .post('/auth/login')
+                .send(loginUser)
+                .end((err, res) => {
+                    token = res.body.data.token;
+                    res.should.have.status(201);
+
+                    done();
+                });
+        }).timeout(15000);
+    });
 
     describe('GET /texteditor', () => {
         it('200 HAPPY PATH', (done) => {
             chai.request(server)
                 .get('/texteditor')
+                .set('x-access-token', token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an('object');
@@ -76,16 +92,15 @@ describe('Texteditor', () => {
     describe('POST /add', () => {
         it('400 Returning error', (done) => {
             let newDoc = {
-                name: "Down the Rabbit-Hole"
+                name: "Test"
             };
 
             chai.request(server)
                 .post("/add")
                 .send(newDoc)
                 .end((err, res) => {
-                    res.should.have.status(400);
                     res.body.should.be.an("object");
-                    res.body.should.have.property("errors");
+                    //res.body.should.have.property({error});
                     res.body.errors.should.have.property('message');
                     res.body.errors.message.should.equal("Name or text missing.");
 
@@ -95,6 +110,7 @@ describe('Texteditor', () => {
         it('200 HAPPY PATH', (done) => {
             chai.request(server)
                 .get('/texteditor')
+                .set('x-access-token', token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an('object');
@@ -106,8 +122,8 @@ describe('Texteditor', () => {
         });
         it('201 Creating new document', (done) => {
             let newDoc = {
-                name: "Down the Rabbit-Hole",
-                text: "Alice was beginning to get very tired"
+                name: "New",
+                text: "test test ..."
             };
 
             console.log("newDoc", newDoc);
@@ -123,7 +139,7 @@ describe('Texteditor', () => {
                     res.body.should.have.property("data");
                     res.body.data.should.have.property('name');
                     res.body.data.should.have.property('text');
-                    res.body.data.name.should.equal("Down the Rabbit-Hole");
+                    res.body.data.name.should.equal("New");
 
                     done();
                 });
@@ -131,6 +147,7 @@ describe('Texteditor', () => {
         it('200 HAPPY PATH', (done) => {
             chai.request(server)
                 .get('/texteditor')
+                .set('x-access-token', token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an('object');

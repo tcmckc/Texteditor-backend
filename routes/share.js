@@ -13,9 +13,9 @@ router.post(
         const doc = req.body;
 
         console.log("req.body!!:", doc);
-        
+
         const filter = { _id: ObjectId(doc["_id"]) };
-        const docEditor = doc.editor ;
+        const docEditor = doc.editor;
 
         if (doc._id && doc.editor) {
             const result = await texteditorModel.addEditor(filter, docEditor);

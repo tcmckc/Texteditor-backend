@@ -23,6 +23,7 @@ const add = require('./routes/add');
 const update = require('./routes/update');
 const auth = require('./routes/auth');
 const share = require('./routes/share');
+const invite = require('./routes/invite');
 
 app.use(cors());
 
@@ -40,6 +41,7 @@ app.use('/add', add);
 app.use('/update', update);
 app.use('/auth', auth);
 app.use('/share', share);
+app.use('/invite', invite);
 
 const schema = new GraphQLSchema({
     query: RootQueryType

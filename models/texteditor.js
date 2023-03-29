@@ -12,6 +12,7 @@ const texteditor = {
 
         try {
             const allDocs = await db.collection.find({}).toArray();
+
             console.log(allDocs);
 
             return allDocs;
@@ -90,14 +91,13 @@ const texteditor = {
 
             return {
                 result
-            }
+            };
         } catch (error) {
             return {
                 error: {
                     message: error.message,
                 }
             };
-
         } finally {
             await db.client.close();
         }

@@ -15,6 +15,7 @@ const RootQueryType = new GraphQLObjectType({
             description: 'List of all documents',
             resolve: async function() {
                 const allDocs = await documents.getAllDocs();
+
                 return allDocs;
             }
         }
