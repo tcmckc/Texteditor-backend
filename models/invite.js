@@ -12,7 +12,7 @@ const invite = {
             from: 'toss21@student.bth.se',
             subject: 'Invitation from Text Editor',
             text: `Document has shared with you at Text Editor.\n
-            Register/login to access the document https://www.student.bth.se/~toss21/`
+            Register/login to access the document https://www.student.bth.se/~toss21/editor`
         };
 
         sgMail
