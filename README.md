@@ -16,4 +16,10 @@ Gets all existing documents in database
 Adds a new document by POST method
 
 ### "/update"
-Updates existing document by POST method# my-app-backend
+Updates existing document by POST method
+
+### "/share"
+Shares a document with another
+
+### "/invite"
+Sends an invitation email to another
